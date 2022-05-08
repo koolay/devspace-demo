@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app01
+  namespace: quickstart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app01
+  template:
+    metadata:
+      labels:
+        app: app01
+    spec:
+      containers:
+      - name: app01
+        image: httpd:2.4.53-alpine
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "48Mi"
+            cpu: "150m"
+          # limits:
+          #   memory: "1024Mi"
+          #   cpu: "500m"
+        env:
+          - name: NATS_SERVER_URL
+            value: nats-server:4222
